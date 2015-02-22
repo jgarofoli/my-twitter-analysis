@@ -8,7 +8,11 @@ jshtml <- paste(readLines("js.html"), collapse=" ")
 
 fetch <- function(username) {
 
-    source('.privateRdata.R', local=T)
+    if (file.exists('.privateRdata.R')) {
+        source('.privateRdata.R', local=T)
+    } else {
+        source('not-privateRdata.R', local=T)
+    }
 
     setup_twitter_oauth(api_key,api_secret,access_token,access_token_secret)
     mht = homeTimeline(n=200)
